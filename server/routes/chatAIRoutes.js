@@ -1,8 +1,9 @@
-//{"id":"59302","variant":"standard","title":"Final chatAIRoutes.js for Smart Study App"}
-const express = require("express");
+import express from "express";
+import { GoogleGenerativeAI } from "@google/generative-ai";
+import dotenv from "dotenv";
+dotenv.config();
+
 const router = express.Router();
-const { GoogleGenerativeAI } = require("@google/generative-ai");
-require("dotenv").config();
 
 const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
 
@@ -15,11 +16,11 @@ router.post("/ask", async (req, res) => {
       return res.status(400).json({ error: "messages[] array is required" });
     }
 
-    // Convert frontend format → Gemini format
+    // last user message
     const lastUserMessage = messages[messages.length - 1].content;
 
     const model = genAI.getGenerativeModel({
-      model: "gemini-1.5-flash"
+      model: "gemini-1.5-flash",
     });
 
     const result = await model.generateContent(lastUserMessage);
@@ -35,4 +36,4 @@ router.post("/ask", async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;
