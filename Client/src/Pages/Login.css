@@ -1,0 +1,123 @@
+.Login-content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+}
+.App-name{
+    margin-top: 30px;
+    text-align: center;
+}
+#login-AppName{
+    font-size: 50px;
+}
+
+.Login-page {
+  display: flex; /* Only once */
+  height: 460px; /* Full screen height */
+  width: 800px;  /* Full screen width */
+  background-color: white;
+  color: black;
+  font-size: 2rem;
+  overflow: hidden; /* Prevents overflow */
+  margin-top: 60px;
+ 
+}
+
+/* Left side (image section) */
+.left-side {
+  width: 45%;
+  overflow: hidden;
+}
+
+.left-side img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Right side (login form section) */
+.right-side {
+ width: 55%;
+  background-color: white;
+}
+.heading-login{
+    font-size: 50px;
+    font-weight: bold;
+    color: rgb(75, 10, 227);
+    text-align: center;
+    padding-top: 15px;
+}
+.sub-heading{
+    font-size: 15px;
+    text-align: center;
+    font-weight: bold;
+}
+.info{
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    gap: 10px;
+    align-items: center;
+}
+.login-input{
+    height: 35px;
+    width: 260px;
+    padding-left: 10px;
+    font-size: 15px;
+}
+.login-btn{
+    height: 40px;
+    width: 110px;
+    font-size: 18px;
+    display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 35px auto 0 auto; 
+
+}
+.login-btn:hover{
+    box-shadow: 0 8px 20px rgba(64, 58, 189, 0.4);
+    background: linear-gradient(135deg, #6861f3, #f06782);
+
+}
+.forgot-btn{
+    font-size: 16px;
+    color: black;
+    cursor: pointer;
+    padding-left: 210px;
+    background: transparent;
+    border: none;
+}
+.forgot-btn:hover{
+    color:rgb(75, 10, 227) ;
+}
+.or{
+    font-size: 25px;
+   
+    text-align: center;
+    margin-top: 25px;
+}
+.register-content{
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+.register-text{
+    font-size: 16px;   
+}
+.register-btn{
+    font-weight: bold;
+    font-size: 16px;
+    color: black;
+    cursor: pointer;    
+    background: transparent;
+    border: none;
+}
+.register-btn:hover{
+    color:rgb(75, 10, 227) ;
+}
