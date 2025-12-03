@@ -15,7 +15,7 @@ connectDB();
 
 const allowedOrigins = ["https://studynova.onrender.com",
   "http://localhost:5173",
-  "http://localhost:3000"];
+  "http://localhost:8000"];
 
 app.use(express.json());
 app.use(cookieParser());
