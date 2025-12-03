@@ -13,14 +13,17 @@ const app = express();
 const port = process.env.PORT || 8000;
 connectDB();
 
-const allowedOrigins = ["https://studynova.onrender.com",
+const allowedOrigins = [
+  "https://studynova.onrender.com",          // Your frontend (Render)
+  "https://mystudyassistentapp.onrender.com", // Your backend domain
   "http://localhost:5173",
-  "http://localhost:8000"];
-
+  "http://localhost:8000"
+];
 app.use(express.json());
 app.use(cookieParser());
+
 app.use(cors({
-  origin:  function (origin, callback) {
+  origin: function (origin, callback) {
     if (!origin) return callback(null, true);
     if (allowedOrigins.includes(origin)) {
       return callback(null, true);
@@ -31,6 +34,7 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
 }));
+
 
 // ✅ Remove this or replace with app.options(/.*/, cors());
 // app.options('*', cors());
