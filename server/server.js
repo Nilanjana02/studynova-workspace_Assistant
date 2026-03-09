@@ -17,6 +17,7 @@ const allowedOrigins = [
   "https://studynova.onrender.com",          // Your frontend (Render)
   "https://mystudyassistentapp.onrender.com", // Your backend domain
   "http://localhost:5173",
+  "http://localhost:5174",
   "http://localhost:8000"
 ];
 app.use(express.json());

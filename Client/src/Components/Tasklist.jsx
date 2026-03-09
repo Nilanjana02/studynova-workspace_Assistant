@@ -6,7 +6,7 @@ import axios from 'axios';
 import { useState } from 'react';
 import { useEffect } from 'react';
 
-const TaskList = ({selectedDate,taskList,setTaskList,showHeader = true, showDelete = true, minimal = false}) => {
+const TaskList = ({selectedDate,taskList,setTaskList,showHeader = true, showDelete = true, minimal = false, showProgress = false}) => {
  
   const [newTask,setNewTask] = useState("");
   const [newTime,setNewTime] = useState("");
@@ -82,54 +82,76 @@ const TaskList = ({selectedDate,taskList,setTaskList,showHeader = true, showDele
       toast.error("Toggle failed");
     }
   };
+  const totalTasks = taskList.length;
+const completedTasks = taskList.filter(task => task.completed).length;
+const progressPercent =
+  totalTasks === 0 ? 0 : (completedTasks / totalTasks) * 100;
 
-  return (
-    <div className={minimal ? "" : "glass-card"}>
-      { !minimal && showHeader &&(
-      <h2 className="section-title">
-       <span className="dot yellow" />ACTIVE MISSIONS ({selectedDate})
-      </h2>
-)}
+  
+return (
+    <div className={minimal ? "" : "glass-card p-5 rounded-xl"}>
+      {/* Header */}
+      {!minimal && showHeader && (
+        <h2 className="section-title">
+          <span className="dot yellow" /> ACTIVE MISSIONS ({selectedDate})
+        </h2>
+      )}
 
- {/* <div className="task-list space-y-4 max-h-[100px] overflow-y-scroll pr-2"> */}
- {/* <div className="task-list max-h-[300px] overflow-y-auto pr-2 custom-scrollbar"> */}
-<div className="task-list h-[20px] ">
+      {/* Task Container */}
+      <div className="task-list space-y-4">
+        {taskList.length === 0 ? (
+          <p className="text-slate-300 text-sm">No missions yet.</p>
+        ) : (
+          taskList.map((task, index) => (
+            <div
+              key={index}
+              className="w-full flex items-center gap-3"
+            >
+              <div
+                onClick={() => toggleTask(index)}
+                className="flex items-center gap-4 flex-grow cursor-pointer"
+              >
+                <img
+                  src={task.completed ? check : non_check}
+                  alt="status"
+                  className="w-5 h-5"
+                />
 
+                <p
+                  className={`text-base font-medium ${
+                    task.completed
+                      ? "line-through text-slate-400"
+                      : "text-white"
+                  }`}
+                >
+                  {task.text}
+                </p>
+              </div>
 
-  {taskList.length === 0 ? ( <p className="text-slate-300 text-sm">
-    No missions yet.</p>) :(taskList.map((task,index)=>(
-
-      <div key = {task.id || index} className="w-full flex items-center gap-3">
-        {/* Left side: check + text */}
-        <div onClick={()=>toggleTask(index)}  className="flex items-center gap-4 flex-grow">
-          <img src={task.completed?check:non_check}
-           alt="status" className="w-5 h-5" />
-          <p
-            // className="text-base font-medium text-white"
-            className={`text-base font-medium ${
-                  task.completed ? 'line-through text-slate-100' : 'text-white'
-                }`}
-          >
-            {task.text}
-          </p>
-        </div>
-        {!minimal && showDelete && (
-          <FaTrash
-  onClick={() => deleteTask(index)}
-  style={{ color:"red", marginLeft: "20px", cursor: "pointer" }}/> 
+              {!minimal && showDelete && (
+                <FaTrash
+                  onClick={() => deleteTask(index)}
+                  className="text-red-500 cursor-pointer"
+                />
+              )}
+            </div>
+          ))
         )}
       </div>
-       ))
-       )}
-       
-   
-  
-</div>
 
+      {/* Progress Bar (Only if showProgress = true) */}
+      {showProgress && totalTasks > 0 && (
+        <div className="mt-6">
+          <div className="flex justify-between text-sm mb-2">
+            <span className="font-bold text-lg text-cyan-400">
+              {completedTasks} / {totalTasks} Completed
+            </span>
+            
+          </div>
+        </div>
+      )}
     </div>
   );
 };
 
 export default TaskList;
-
-

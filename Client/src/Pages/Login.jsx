@@ -11,6 +11,7 @@ axios.defaults.withCredentials = true;
 function Login() {
     const navigate = useNavigate();
     const {BackendUrl,isLoggedin,setIsLoggedin} = useContext(AppContext)
+     console.log("Backend URL:", BackendUrl); //check the backend url
   
    
     const [action,setAction] = useState("Login");
@@ -38,6 +39,9 @@ function Login() {
         {
             setSubheading("Create Your Account")
         }
+        else if(action === 'verifyEmail'){
+    setSubheading("Enter the OTP sent to your email");
+}
     },[action]);
      const handelLogin = async(e)=>{
         e.preventDefault(); 
@@ -52,17 +56,34 @@ function Login() {
         }
 
         const {data} = await axios.post(`${BackendUrl}/api/auth/register`,{name,email,password});
+    if(data.success){
+    toast.success("OTP sent to your email");
+    setAction('verifyEmail');
+}
+    //     
+    else{
+        toast.error(data.message);
+    }
+}
+else if(action === "verifyEmail"){
+    if(!otp){
+        setError("Please enter OTP");
+        return;
+    }
 
-        if(data.success){
-        alert(`Account created for ${name}`);
-        setAction('Login');
-        setName('');
-        setEmail('');
-        setPassword('');
+    const {data} = await axios.post(
+        `${BackendUrl}/api/auth/verify-account`,
+        {email, otp}
+    );
+
+    if(data.success){
+        toast.success("Email verified successfully");
+        setAction("Login");
     }else{
         toast.error(data.message);
     }
 }
+
 
 // ---login---
   else if (action === "Login")
@@ -77,8 +98,15 @@ function Login() {
                 toast("your are successfully loggedin");
                 setIsLoggedin(true);
                 setSubheading("Login With Email");
-                navigate('/dashboard');
-            }else{
+                // navigate('/dashboard');
+               
+                navigate('/dashboard', { 
+               state: { 
+               activePage: "dashboard", 
+               name: data.user?.name 
+                  } 
+                 });
+   }else{
                 toast.error(data.message);
             }
         }
@@ -135,8 +163,18 @@ function Login() {
     forgot: "Send OTP",
     register: "Register",
     resetPassword: "Reset",
+     verifyEmail: "Verify Email",
     }[action] || "Login";
-   
+   const resetFields = () => {
+    setName('');
+    setEmail('');
+    setPassword('');
+    setOtp('');
+    setError('');
+};
+useEffect(() => {
+  resetFields();
+}, [action]);
          
   return (
     <div className='Login-content'>
@@ -160,9 +198,21 @@ function Login() {
                     value = {name}
                     onChange={(e)=>setName(e.target.value)}/>
                 )}
+
                 <input type="text" placeholder='Email' className='login-input'
                 value = {email}
                 onChange={(e)=>setEmail(e.target.value)}/>
+                {action === 'verifyEmail' && (
+    <input 
+        type="text" 
+        placeholder='Enter OTP' 
+        className='login-input'
+        value={otp}
+        onChange={(e)=>setOtp(e.target.value)}
+    />
+)}
+
+
                 {/* for password field */}
                 {(action === 'Login' || action === 'register') &&(
                         <input type="password" placeholder='Password' className='login-input'
@@ -219,16 +269,21 @@ function Login() {
                 </div>
             </div>
            <div className='forgot-password'>
-            {action ==='Login'&&(
-               <button className="forgot-btn" onClick={()=>{
-                setAction('forgot');
-              
+  {action === 'Login' && (
+    <button 
+      type="button"
+      className="forgot-btn" 
+     onClick={() => {
 
-            }}>Forgot Password?</button>
-            )}
-            
-           </div>
-            <button className='login-btn launch-btn' onClick={handelLogin}>
+  setAction('forgot');
+}}
+    >
+      Forgot Password?
+    </button>
+  )}
+</div>
+
+            <button type="submit" className='login-btn launch-btn'>
               {buttonText}
             </button>
             </form>
@@ -240,13 +295,15 @@ function Login() {
                   <p className='or'>OR</p>
             <div className='register-content'>
                 <p className='register-text'>Don't have account?</p>
-                <button className="register-btn" 
-                
-                 onClick={()=>{
-                    setAction('register');
-                  
-                 }}
-               >Register Now</button>
+                <button 
+  type="button"
+  className="register-btn"
+onClick={() => { 
+  setAction('register');}}
+>
+  Register Now
+</button>
+
             </div>
             </div> 
                 )}

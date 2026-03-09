@@ -1,39 +1,37 @@
 import express from "express";
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import dotenv from "dotenv";
-dotenv.config();
+import "dotenv/config";
 
 const router = express.Router();
 
-const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
-// POST /api/ai/ask
 router.post("/ask", async (req, res) => {
+  console.log("BODY RECEIVED:", req.body);
   try {
-    const { messages } = req.body;
+    const { question } = req.body;
 
-    if (!messages || !Array.isArray(messages)) {
-      return res.status(400).json({ error: "messages[] array is required" });
+    if (!question) {
+      return res.status(400).json({ error: "Question is required" });
     }
 
-    // last user message
-    const lastUserMessage = messages[messages.length - 1].content;
-
     const model = genAI.getGenerativeModel({
-      model: "gemini-1.5-flash",
+      model: "gemini-flash-latest",
     });
 
-    const result = await model.generateContent(lastUserMessage);
+    const result = await model.generateContent(
+      `You are a helpful AI study assistant. Answer clearly and simply.\nQuestion: ${question}`
+    );
 
-    const aiText = result.response.text();
+    const answer = result.response.text();
 
-    res.json({ reply: aiText });
+    res.json({ reply: answer });
+
   } catch (error) {
-    console.error("FULL AI ERROR:", error);
+    console.error("FULL AI ERROR:", error.message || error);
     res.status(500).json({
       error: "AI failed: " + error.message,
     });
   }
 });
-
 export default router;

@@ -6,21 +6,31 @@ import Sidebar from '../Components/Sidebar.jsx';
 import Header from '../Components/Header';
 import NewTask from '../Components/NewTask';
 import TaskList from '../Components/Tasklist';
-import Calendar from '../Components/Calendar';
+//import Calendar from '../Components/Calendar';
 import { useLocation } from 'react-router-dom';
 import Myplan from './Myplan';
 import Dashboard from './Dashboard.jsx';
 
 
 function Home () {
-   const [activePage, setActivePage] = useState("dashboard");
-   const [action , setAction] = useState('');
+  
+  const location = useLocation();
+const name = location.state?.name || "Guest";
+
+const [activePage, setActivePage] = useState(
+  location.state?.activePage || "dashboard"
+);
+ 
+//<Header userName={name} activePage={activePage}/>
+
+  //  const [action , setAction] = useState('');
+ 
    const [taskList,setTaskList] = useState([]);//have to store the task list and then pass it 
    const [selectedDate,setSelectedDate] = 
    useState(new Date().toISOString().split("T")[0]);
 
-   const location = useLocation();
-   const name  = location.state?.name || 'Guest';
+  //  const location = useLocation();
+  //  const name  = location.state?.name || 'Guest';
    
    
    //delete funtion
@@ -41,13 +51,13 @@ function Home () {
   return (
     <div className="container">
       <div className='sidebar-area'>
-     <Sidebar setActivePage={setActivePage} setAction = {setAction} action={action}/>
+     <Sidebar setActivePage={setActivePage} activePage={activePage}/>
      </div>
      <div className='content-area'>
       <Header userName = {name} activePage={activePage}/>
       <div className="main-layout">
         <div className="left-column">
-          {action ==='newtask' && 
+          {activePage ==='newtask' && 
           <>
            <NewTask 
            selectedDate={selectedDate}
@@ -68,15 +78,20 @@ function Home () {
          
         </div>
         <div className="right-column">
-         {action ==='myplan'&&
+         {activePage ==='myplan'&&
          <>
          <Myplan/>
          </>
 }
-         {action === "dashboard" && 
+         {/* {action === "dashboard" && 
          <>
          <Dashboard />
-         </>}
+         </>} */}
+
+        
+ {activePage === "dashboard" && (
+  <Dashboard goToNewTask={() => setActivePage("newtask")} />
+)}
 
         </div>
       </div>

@@ -24,7 +24,7 @@ function AIChatAssistant() {
     try {
     const res = await axios.post(
   `${BACKEND_URL}/api/ai/ask`,
-  { userInput: input },
+  { question: input },
   { headers: { "Content-Type": "application/json" } }
 );
 
@@ -41,11 +41,10 @@ function AIChatAssistant() {
 
   return (
     <div className="ai-chat glass-card mt-4 p-4">
-      <h2 className="section-title">
-        <span className="dot cyan" /> AI Study Assistant
-      </h2>
-
-      <div className="chat-box overflow-y-auto max-h-[250px] custom-scrollbar mb-3">
+      <h2 className="section-title"> 
+        <span className="dot cyan" /> AI Study Assistant </h2>
+      <div className="AI-chat-container">
+      <div className="chat-box flex-grow mb-3 ">
         {messages.map((m, i) => (
           <div key={i} className={`msg ${m.role}`}>
             {m.content}
@@ -54,10 +53,10 @@ function AIChatAssistant() {
         {loading && <p className="msg assistant">💭 Thinking...</p>}
       </div>
 
-      <form onSubmit={handleSend} className="flex gap-2">
+      <form onSubmit={handleSend} className=" flex gap-[15px] ">
         <input
           type="text"
-          className="flex-grow bg-transparent border border-cyan-500 rounded-xl px-3 py-2 text-white"
+          className="flex-grow bg-transparent border border-cyan-500 rounded-xl px-4 py-2 text-black"
           placeholder="Ask AI anything..."
           value={input}
           onChange={(e) => setInput(e.target.value)}
@@ -66,6 +65,7 @@ function AIChatAssistant() {
           <FaPaperPlane /> Send
         </button>
       </form>
+      </div>
     </div>
   );
 }

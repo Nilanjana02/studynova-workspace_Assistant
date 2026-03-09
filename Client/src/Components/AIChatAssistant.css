@@ -1,13 +1,33 @@
+
+.ai-chat {
+  height: 310px;
+  display: flex;
+  flex-direction: column;
+}
+
+.AI-chat-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;  
+}
+
+.chat-box {
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0;  
+}
 .ai-chat .msg {
   margin: 6px 0;
   padding: 8px 12px;
   border-radius: 10px;
   max-width: 85%;
-  color: black;
+  color:white
 }
 
+
 .ai-chat .msg.user {
-  background-color: rgba(0, 255, 255, 0.1);
+  background-color: rgba(28, 1, 14, 0.536);
   align-self: flex-end;
   text-align: right;
 }
@@ -16,3 +36,6 @@
   background-color: rgba(255, 255, 255, 0.1);
   text-align: left;
 }
+
+
+

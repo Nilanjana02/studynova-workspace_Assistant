@@ -24,7 +24,7 @@ body {
 
 }
 .sidebar {
-  position: fixed;
+  position: fixed; 
   top: 0;
   left: 0;
   height: 100vh; /* Full height of the screen */
@@ -33,6 +33,12 @@ body {
   padding-top: 0; /* Make sure no extra padding at the top */
   margin: 0; /* Remove any margin */
   z-index: 1000; /* Ensure it stays on top */
+}
+.user-details{
+  display: flex;
+  flex-direction:row ;
+ /* justify-content: space-between; */
+  gap: 20px;
 }
 
 .user-avatar {
@@ -49,8 +55,20 @@ body {
   box-shadow: 0 4px 12px rgba(108, 99, 255, 0.4);
   text-transform: uppercase;
 }
+.log-out{
+  color: red;
+  font-weight: bold;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+   transition: all 0.3s ease;
+}
+.log-out:hover{
+  transform: translateX(5px) scale(1.05);
+   color: #ff6b6b;
+}
 #home-AppName{
-  font-size: 42px;
+  font-size: 40px;
 }
    
 .App-name{
@@ -73,7 +91,7 @@ body {
    gap: 20px;
    margin-top: 25px;
    width: 100%;
-   min-height: 400px;
+   min-height: 380px;
 }
 
 .side-btn {
@@ -123,11 +141,15 @@ body {
 }
 
 .content-area{
-  min-width: 1100px;
-  margin-left: 320px;
-  margin-top: 30px;
+ 
+  max-width:1100px;
 
-}
+  margin-left: 320px;
+  margin-top: 30px; 
+
+} 
+
+
 .dashboard-header{
   display: flex;
   font-size: 2rem;
@@ -138,8 +160,31 @@ body {
  
   
 }
+
+/* //for emply dashboard */
+.empty-dashboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  text-align: center;
+  min-height: 70vh;
+}
+.rocket-bounce {
+  animation: rocketBounce 1.2s infinite ease-in-out;
+}
+
+@keyframes rocketBounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
 .icon {
-  position: relative;;
+  position: relative;
   top: 5px;
 }
 
@@ -265,11 +310,7 @@ body {
   background: rgba(30, 41, 59, 0.9);
 }
 
-/* Calendar */
-/* .calendar-container {
-  transform: scale(0.9);        
-  margin-top: 5px;
-} */
+
 
 .calendar-nav {
   display: flex;
@@ -315,7 +356,7 @@ body {
   display: flex;
   align-items: center;
   font-size: 1.25rem;
-  font-weight: 600;
+  font-weight: 600; 
   margin-bottom: 1rem;
 }
 
@@ -331,11 +372,18 @@ body {
   background-color: #facc15;
 }
 .right-column{
-  display: flex;
+  /* display: flex;
   flex-direction: row;
   /* justify-content: space-between; */
-  margin-left: 60px;
+  /* margin-left: 60px;
   gap: 100px;
+  flex: 1; */
+   display: flex;
+  flex-direction: column;   /* change this */
+  align-items: center;      /* center horizontally */
+  justify-content: center;  /* center vertically */
+  margin-left: 60px;
+  flex: 1;
 }
 
 
@@ -428,31 +476,6 @@ body {
   background-clip: text;
   color: transparent;
 }
-
-/* Utility Styles */
-/* For clean thin scrollbar */
-/* .custom-scrollbar::-webkit-scrollbar {
-  width: 6px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background-color: rgba(255, 255, 255, 0.2);
-  border-radius: 10px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-track {
-  background: transparent;
-} */
- /* .custom-scrollbar::-webkit-scrollbar {
-  width: 6px;
-}
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.25);
-  border-radius: 10px;
-}
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.4);
-} */
 
 .task-list{
   height: 65px;
@@ -871,4 +894,84 @@ body {
 
 .buttons svg {
   vertical-align: middle;
+ }
+ /* header{
+  flex-wrap:wrap;
+  gap:15px;
+} */
+
+
+/* @media(min-width:840px){
+  .right-column{
+    max-width: 500px;
+  }
+  .sidebar-area{
+    max-width: 250px;
+  }
+  header{
+    position: fixed;
+  width:100%;
+  max-width:640px;
 }
+
+  .content-area{
+    width:100%;
+    max-width:640px;
+    margin-left:320px;
+    margin-top:40px;
+  }
+
+  .dashboard-header{
+    font-size: 20px;
+  }
+  .user-details{
+    max-width: 300px;
+  }
+
+  .Left_content{
+    width: 100px;
+}
+
+.Right_content{
+    width: 350px;
+    height: 400px;
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    color: black; 
+}
+
+
+.section-title{
+  font-size:15px;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+.time {
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+#Stopwatch-card{
+  max-width: 210px;
+  height: 180px;
+}
+.buttons button {
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+}
+
+} */
+
+
+  
+
+/* @media(min-width:1100px)
+{
+  .right-column{
+    max-width: 1100px;
+  }
+} */

@@ -14,7 +14,7 @@ const TemporalTools = () => {
   const formatTime = (s) => `${String(Math.floor(s / 3600)).padStart(2, '0')}:${String(Math.floor((s % 3600) / 60)).padStart(2, '0')}:${String(s % 60).padStart(2, '0')}`;
 
   return (
-    <div className="glass-card">
+    <div className="glass-card" id='Stopwatch-card'>
       <h2 className="section-title">
         <span className="dot red" /> Start Your Journey
       </h2>

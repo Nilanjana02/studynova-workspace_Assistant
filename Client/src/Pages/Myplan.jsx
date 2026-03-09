@@ -71,7 +71,7 @@ useEffect(() => {
         <AnalogClock/>
     </div>
     <div className='Right_content'>
-      <div className="glass-card">
+      <div className="glass-card" id='myplan-right-glass-card'>
         <h2 className='section-title'>
           My plan {selectedPlanDate ? `(${selectedPlanDate})` : '(No upcoming plans)'}
         </h2>
@@ -94,8 +94,7 @@ useEffect(() => {
         )}
       </div>
       <AIChatAssistant />
-
-    </div>
+</div>
     </div>
   );
 }
