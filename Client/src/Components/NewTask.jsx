@@ -14,7 +14,8 @@ const NewTask = ({selectedDate,setSelectedDate,taskList,setTaskList}) => {
     if (!task.trim()) return toast.error('Please enter a task');
     // const inputTask = inputRef.current.value.trim();
     try{
-      const res = await axios.post('http://localhost:8000/api/tasks/add', {
+      const res = await axios.post(
+      `${BACKEND_URL}/api/tasks/add`, {
         text: task,
         date: selectedDate,
       }, { withCredentials: true });
