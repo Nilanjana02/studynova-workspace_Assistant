@@ -2,7 +2,7 @@ import { Children, createContext, useState } from "react";
 export const AppContext = createContext();
 export const AppContextProvider = (props)=>{
     
-    const BackendUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:8000";
+    const BackendUrl = import.meta.env.VITE_BACKEND_URL;
 
     const [isLoggedin,setIsLoggedin] = useState(false)
     const [userData,setUserData] = useState(false)
