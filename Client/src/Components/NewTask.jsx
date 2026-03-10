@@ -39,7 +39,7 @@ const NewTask = ({selectedDate,setSelectedDate,taskList,setTaskList}) => {
 
   return (
 <>
-  <div className="glass-card gap-6 p-5">
+  <div className="glass-card gap-6 p-5 newtask-container">
     
       {/* 🚀 Task input form */}
       <div>

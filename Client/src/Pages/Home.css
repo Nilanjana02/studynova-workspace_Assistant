@@ -128,6 +128,9 @@ body {
 .icon {
   font-size: 1.8rem;
 }
+.newtask-container{
+  width: 100%;
+}
 #newtask{
    background: linear-gradient(135deg, #3a31dc, #d42c4d);
   height: 50px;
@@ -142,10 +145,10 @@ body {
 
 .content-area{
  
-  max-width:1100px;
 
-  margin-left: 320px;
-  margin-top: 30px; 
+  margin-left: 360px;
+  margin-top: 30px;
+  padding-right: 40px;
 
 } 
 
@@ -170,6 +173,7 @@ body {
   gap: 20px;
   text-align: center;
   min-height: 70vh;
+  max-width: 100%;
 }
 .rocket-bounce {
   animation: rocketBounce 1.2s infinite ease-in-out;
@@ -222,7 +226,7 @@ body {
 
 
 
-@media (min-width: 640px) {
+/* @media (min-width: 640px) {
   .container {
     max-width: 640px;
   }
@@ -250,7 +254,7 @@ body {
   .container {
     max-width: 1536px;
   }
-}
+} */
 
 .mx-auto {
   margin-left: auto;
@@ -371,20 +375,25 @@ body {
 .dot.yellow {
   background-color: #facc15;
 }
-.right-column{
+
+.main-layout{
+  width: 100%;
+  max-width: 1100px;
+}
+/*.right-column{
   /* display: flex;
   flex-direction: row;
   /* justify-content: space-between; */
   /* margin-left: 60px;
   gap: 100px;
   flex: 1; */
-   display: flex;
-  flex-direction: column;   /* change this */
-  align-items: center;      /* center horizontally */
-  justify-content: center;  /* center vertically */
+   /* display: flex;
+  flex-direction: column;   
+  align-items: center;     
+  justify-content: center;  
   margin-left: 60px;
   flex: 1;
-}
+} */
 
 
 /* Clock */
@@ -895,83 +904,4 @@ body {
 .buttons svg {
   vertical-align: middle;
  }
- /* header{
-  flex-wrap:wrap;
-  gap:15px;
-} */
-
-
-/* @media(min-width:840px){
-  .right-column{
-    max-width: 500px;
-  }
-  .sidebar-area{
-    max-width: 250px;
-  }
-  header{
-    position: fixed;
-  width:100%;
-  max-width:640px;
-}
-
-  .content-area{
-    width:100%;
-    max-width:640px;
-    margin-left:320px;
-    margin-top:40px;
-  }
-
-  .dashboard-header{
-    font-size: 20px;
-  }
-  .user-details{
-    max-width: 300px;
-  }
-
-  .Left_content{
-    width: 100px;
-}
-
-.Right_content{
-    width: 350px;
-    height: 400px;
-    background-color: white;
-    border-radius: 10px;
-    padding: 20px;
-    color: black; 
-}
-
-
-.section-title{
-  font-size:15px;
-  align-items: center;
-  justify-content: center;
-  font-weight: 500;
-  margin-bottom: 1rem;
-}
-.time {
-  font-size: 1.6rem;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-}
-#Stopwatch-card{
-  max-width: 210px;
-  height: 180px;
-}
-.buttons button {
-  padding: 8px 12px;
-  border-radius: 6px;
-  font-size: 0.8rem;
-}
-
-} */
-
-
-  
-
-/* @media(min-width:1100px)
-{
-  .right-column{
-    max-width: 1100px;
-  }
-} */
+ 

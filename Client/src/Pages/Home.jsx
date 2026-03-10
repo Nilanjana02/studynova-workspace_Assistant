@@ -55,7 +55,7 @@ const [activePage, setActivePage] = useState(
      </div>
      <div className='content-area'>
       <Header userName = {name} activePage={activePage}/>
-      <div className="main-layout">
+      {/* <div className="main-layout">
         <div className="left-column">
           {activePage ==='newtask' && 
           <>
@@ -70,7 +70,6 @@ const [activePage, setActivePage] = useState(
           setTaskList={setTaskList}
           deleteTask={deleteTask} 
           toggle={toggle}  />
-          {/* //pass the Tasklist */}
           
          
           </>
@@ -83,10 +82,7 @@ const [activePage, setActivePage] = useState(
          <Myplan/>
          </>
 }
-         {/* {action === "dashboard" && 
-         <>
-         <Dashboard />
-         </>} */}
+         
 
         
  {activePage === "dashboard" && (
@@ -94,7 +90,37 @@ const [activePage, setActivePage] = useState(
 )}
 
         </div>
-      </div>
+      </div> */}
+
+<div className="main-layout">
+
+  {activePage === "dashboard" && (
+    <Dashboard goToNewTask={() => setActivePage("newtask")} />
+  )}
+
+  {activePage === "newtask" && (
+    <>
+      <NewTask
+        selectedDate={selectedDate}
+        setSelectedDate={setSelectedDate}
+        taskList={taskList}
+        setTaskList={setTaskList}
+      />
+
+      <TaskList
+        selectedDate={selectedDate}
+        taskList={taskList}
+        setTaskList={setTaskList}
+        deleteTask={deleteTask}
+        toggle={toggle}
+      />
+    </>
+  )}
+
+  {activePage === "myplan" && <Myplan />}
+
+</div>
+
       </div>
     </div>
   );
