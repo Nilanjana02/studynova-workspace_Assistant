@@ -11,6 +11,7 @@ import aiRoutes from "./routes/chatAIRoutes.js";
 
 const app = express();
 const port = process.env.PORT || 8000;
+
 connectDB();
 
 const allowedOrigins = [
