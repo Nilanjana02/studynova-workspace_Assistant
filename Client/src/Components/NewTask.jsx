@@ -9,6 +9,7 @@ const NewTask = ({selectedDate,setSelectedDate,taskList,setTaskList}) => {
   // const [selectedDate,setSelectedDate] = useState(new Date().toISOString().split("T")[0]);
 
   // const inputRef = useRef();
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
    const handleSubmit = async(e) => {
     e.preventDefault();
     if (!task.trim()) return toast.error('Please enter a task');
