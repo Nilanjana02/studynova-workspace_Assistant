@@ -5,7 +5,7 @@ import axios from 'axios';
 import Calendar from './Calendar.jsx';
 
 const NewTask = ({selectedDate,setSelectedDate,taskList,setTaskList}) => {
-  const [task,setTask] = useState();
+  const [task,setTask] = useState("");
   // const [selectedDate,setSelectedDate] = useState(new Date().toISOString().split("T")[0]);
 
   // const inputRef = useRef();
