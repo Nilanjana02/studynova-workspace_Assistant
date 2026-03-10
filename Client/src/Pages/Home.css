@@ -145,10 +145,15 @@ body {
 
 .content-area{
  
-
-  margin-left: 360px;
+   min-width: 1100px;
+  margin-left: 350px;
   margin-top: 30px;
-  padding-right: 40px;
+  padding-right: 40px; 
+
+  /* margin-left: 300px; 
+  margin-top: 20px;
+  padding: 30px;
+  width: calc(100% - 300px); */
 
 } 
 
@@ -378,7 +383,7 @@ body {
 
 .main-layout{
   width: 100%;
-  max-width: 1100px;
+  /* min-width: 1100px; */
 }
 /*.right-column{
   /* display: flex;
@@ -903,5 +908,8 @@ body {
 
 .buttons svg {
   vertical-align: middle;
+ }
+ #upper-header{
+  width: 100%;
  }
  

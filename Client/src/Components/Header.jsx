@@ -44,7 +44,7 @@ const handleLogout = async () => {
 };
 
   return (
-    <header className="flex justify-between items-center mb-8" >
+    <header className="flex justify-between items-center mb-8 "id='upper-header' >
      
        
 
