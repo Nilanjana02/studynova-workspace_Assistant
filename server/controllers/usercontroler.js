@@ -39,7 +39,7 @@ export const register= async(req,res)=>{
       text: `Your verification OTP is ${otp}`
     };
 
-    await transpoter.sendMail(mailOption);
+    await transpoter.sendMail(mailOption).catch(console.error);;
 
   } catch (error) {
     return res.json({success:false,message:error.message})
