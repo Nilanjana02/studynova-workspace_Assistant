@@ -167,7 +167,6 @@ else if(action === "verifyEmail"){
     }[action] || "Login";
    const resetFields = () => {
     setName('');
-    setEmail('');
     setPassword('');
     setOtp('');
     setError('');
