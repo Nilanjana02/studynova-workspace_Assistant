@@ -25,6 +25,11 @@ export const register= async(req,res)=>{
     newuser.verifyotp = otp;
     newuser.verifyotpExpireAt = Date.now() + 15 * 60 * 1000;
     await newuser.save();
+    
+     res.json({
+      success: true,
+      message: "OTP sent to email. Please verify before login."
+    });
 
     // 🔥 Send OTP email
     const mailOption = {
@@ -35,11 +40,6 @@ export const register= async(req,res)=>{
     };
 
     await transpoter.sendMail(mailOption);
-
-    return res.json({
-      success: true,
-      message: "OTP sent to email. Please verify before login."
-    });
 
   } catch (error) {
     return res.json({success:false,message:error.message})
