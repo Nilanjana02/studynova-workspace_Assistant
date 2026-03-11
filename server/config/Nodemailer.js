@@ -10,4 +10,11 @@ const transpoter = nodemailer.createTransport({
     }
 
 });
+transpoter.verify((error, success) => {
+  if (error) {
+    console.log("SMTP ERROR:", error);
+  } else {
+    console.log("SMTP is ready");
+  }
+});
 export default transpoter;
