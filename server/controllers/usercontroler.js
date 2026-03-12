@@ -1,7 +1,8 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import User from "../models/user.model.js";
-import transpoter from "../config/Nodemailer.js";
+
+import emailApi from "../config/brevo.js";
 
 export const register= async(req,res)=>{
   const{name,email,password} = req.body;
@@ -31,15 +32,25 @@ export const register= async(req,res)=>{
       message: "OTP sent to email. Please verify before login."
     });
 
-    // 🔥 Send OTP email
-    const mailOption = {
-      from: process.env.SENDER_EMAIL,
-      to: email,
-      subject: "Verify your Email - STUDYNOVA",
-      text: `Your verification OTP is ${otp}`
-    };
 
-    await transpoter.sendMail(mailOption).catch(console.error);;
+    await emailApi.sendTransacEmail({
+  sender: {
+    email: process.env.SENDER_EMAIL,
+    name: "STUDYNOVA"
+  },
+  to: [
+    {
+      email: email
+    }
+  ],
+  subject: "Verify your Email - STUDYNOVA",
+  textContent: `Your verification OTP is ${otp}`
+});
+
+    return res.json({
+      success: true,
+      message: "OTP sent to email. Please verify before login."
+    });
 
   } catch (error) {
     return res.json({success:false,message:error.message})
@@ -128,52 +139,23 @@ export const login = async (req,res)=>{
       newuser.verifyotpExpireAt = Date.now()+24*60*60*1000;
       await newuser.save();
 
-      const mailOption = {
-        from:process.env.SENDER_EMAIL,
-        to:newuser.email,
-        subject: "Account Verification OTP",
-        text:`Your OTP is ${otp}.Verify your account using this otp`
-      }
-      await transpoter.sendMail(mailOption);
+  await emailApi.sendTransacEmail({
+  sender: {
+    email: process.env.SENDER_EMAIL,
+    name: "STUDYNOVA"
+  },
+  to: [{ email: newuser.email }],
+  subject: "Account Verification OTP",
+  textContent: `Your OTP is ${otp}. Verify your account using this OTP`
+});
       return res.json({success:true,message:"verification otp send on email "})
       
     } catch (error) {
        return res.json({success:false,message:error.message});
     }
   }
-  // export const verifyEmail =async(req,res)=>{
-  //   const {otp} = req.body;
-  //   const userId = req.user.id;
-  //   if(!userId || !otp)
-  //   {
-  //     return res.json({success:false,message:"missing details"});
-  //   }
-  //     try {
-  //       const newuser = await User.findById(userId);
-  //       if(!newuser){
-  //         return res.json({success:false,message:"User is not exist"});
-  //       }
-  //       //otp not match
-  //       if(newuser.verifyotp===''||newuser.verifyotp!==otp){
-  //          return res.json({success:false,message:"Invalid OTP"});
-  //       }
-
-  //       //otp is expired
-  //       if(newuser.verifyotpExpireAt < Date.now()){
-  //         return res.json({success:false,message:"OTP is expired"});
-  //       }
-  //       //if OTP is not expired then we have to verify the user
-  //       newuser.isAccountVerified = true;
-  //       newuser.verifyotp='';
-  //       newuser.verifyotpExpireAt = 0;
-  //       //save the user data
-  //       await newuser.save();
-  //       return res.json({success:true,message:"Email verified successfully"})
-        
-  //     } catch (error) {
-  //          return res.json({success:false,message:error.message})
-  //     }
-  // }
+  
+  
 
   //user logged in or not
  export const verifyEmail = async (req,res)=>{
@@ -205,14 +187,15 @@ export const login = async (req,res)=>{
     await newuser.save();
 
     // 🎉 SEND WELCOME EMAIL HERE
-    const mailOption = {
-      from: process.env.SENDER_EMAIL,
-      to: newuser.email,
-      subject: "Welcome to STUDYNOVA",
-      text: `Welcome to STUDYNOVA ${newuser.name}. Your account has been successfully verified.`
-    };
-
-    await transpoter.sendMail(mailOption);
+   await emailApi.sendTransacEmail({
+  sender: {
+    email: process.env.SENDER_EMAIL,
+    name: "STUDYNOVA"
+  },
+  to: [{ email: newuser.email }],
+  subject: "Welcome to STUDYNOVA",
+  textContent: `Welcome to STUDYNOVA ${newuser.name}. Your account has been successfully verified.`
+});
 
     return res.json({
       success:true,
@@ -251,13 +234,15 @@ export const login = async (req,res)=>{
       newuser.resetOtpExpiredAt = Date.now()+15*60*60*1000;
       await newuser.save();
     //send the otp for reset the password
-     const mailOption = {
-        from:process.env.SENDER_EMAIL,
-        to:newuser.email,
-        subject: "Reset password OTP",
-        text:`Your password reset OTP is ${otp}.Reset your password using this OTP  `
-      }
-      await transpoter.sendMail(mailOption);
+     await emailApi.sendTransacEmail({
+  sender: {
+    email: process.env.SENDER_EMAIL,
+    name: "STUDYNOVA"
+  },
+  to: [{ email: newuser.email }],
+  subject: "Reset Password OTP",
+  textContent: `Your password reset OTP is ${otp}`
+});
       return res.json({success:true,message:"OTP send to your register email "})
       
     } catch (error) {

@@ -21,6 +21,7 @@
     "mongoose": "^8.18.0",
     "nodemailer": "^7.0.6",
     "nodemon": "^3.1.10",
-    "openai": "^6.9.1"
+    "openai": "^6.9.1",
+    "sib-api-v3-sdk": "^8.5.0"
   }
 }
